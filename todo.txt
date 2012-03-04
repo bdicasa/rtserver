@@ -1,0 +1,31 @@
+
+ - JsonRpcResponseWriter should implement interface to increase testability of JsonRpcMethodHandlers
+ 
+ - Communicator should be returning ChannelFuture and ChannelFutureGroup. How to handle this when
+  adding horizontal scalability? No guarantee that the connection we are writing to is located on
+  same machine. 
+ 
+ - Ensure LongPollingConnection returns a ChannelFuture (not void) even if a message is written to the queue.
+   This will allow for common completion handling for all connections, regardless of type. In the event
+   that a message is written to long polling connection while we don't have a writer request, a custom ChannelFuture
+   will probably need to be created, with its completion handler called as soon as the message is written to the message queue.
+
+ - Create rtserver.json.rpc.JsonCommunicator which sends JSON messages to connections.
+ 
+ - Handling keep-alive http requests properly?
+ 
+ - File handling security mentioned in Netty Synchronous file handler example. What other measures should be taken?
+ 
+ - REST implementation over top of RTServer
+ 
+ - Horizontal Scaling
+ 
+ - Exception: An existing connection was forcibly closed..
+   This seems to happen when sending request from two clients near the same time and firefox terminates a long poll requester
+   May be fixed from some refactoring, try to reproduce
+       - Seems to now only happen when IE is closed 
+       
+ - Long polling client needs a way to close, and onclose js method should be called. This method should also
+   get called when there is a disconnect (ie long polling connection should stop trying to call server)
+ 
+ - Should provide asynchronous file serving using Java 7's new file api
