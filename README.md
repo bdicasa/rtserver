@@ -41,7 +41,7 @@ var jsonComm = new RTClient.JsonCommunicator(socket);
 
 // Instruct the communicator to listen for the messageReceived message.
 // Whenever a messageReceived message is received from the server, the provided function is run.
-jsonComm.listen('chatMessageReceived', function(data) {
+jsonComm.listen('messageReceived', function(data) {
 	displayMessage(data.message);
 });
 
