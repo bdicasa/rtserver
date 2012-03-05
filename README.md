@@ -12,6 +12,9 @@ methods used for real time communication in todays application. The iPhone appli
 can use a raw TCP socket, where as your web application can use WebSockets when supported,
 and a long polling solution when WebSockets are not supported.
 
+Please not that RTServer is still under development and is not ready for production use. More
+documentation will be added as the project progresses.
+
 # An example application
 
 To get a feeling for how RTServer works, an example echo application is shown below.
