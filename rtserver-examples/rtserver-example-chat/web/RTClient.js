@@ -280,18 +280,18 @@ RTClient.JsonCommunicator = function(socket) {
 		var message = JSON.parse(event.data);
 		var id = message.id;
 		
-		// If a message name property was specified, the server sent a message.
-		// See if we have a listener listening for the message.
-		if (message.messageName) {
-			if (self._listeners[message.messageName]) {
-				self._listeners[message.messageName](message.params);
+		// If a c (channel) property is specified, the server sent a message from a channel.
+		// See if we have a listener listening for the specified channel.
+		if (message.c) {
+			if (self._listeners[message.c]) {
+				self._listeners[message.c](message.d);
 			}
 		}
 		
-		// If a result object is specified, it was a successful RPC call.
+		// If a r (result) property is specified, it was a successful RPC call.
 		if (message.r) {
 		
-			// If a success handler was specified for the given resquest id,
+			// If a success handler was specified for the given request id,
 			// call the success handler.
 			if (self._responseHandlers[id] && self._responseHandlers[id].success) {
 				self._responseHandlers[id].success(message.result);
@@ -341,15 +341,14 @@ RTClient.JsonCommunicator.prototype = {
 		self._currentRequestId++;
 	},
 	
-	sub: function(config) {
-	
-	},
-	
 	/**
-	 * Listens for a JSON message from the server.
+	 * Listens for JSON messages sent from the specified channel.
+	 * @param channel The channel the message came from.
+	 * @param handler A handler to be executed when a message is
+	 * received from the specified channel.
 	 */
-	listen: function(messageName, handler) {
+	listen: function(channel, handler) {
 		var self = this;
-		self._listeners[messageName] = handler;
+		self._listeners[channel] = handler;
 	}
 };

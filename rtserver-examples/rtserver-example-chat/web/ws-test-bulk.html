@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Web Socket Test</title>
+    <style type="text/css">
+        #chat-log {
+            width: 300px;
+            height: 500px;
+            border: solid 1px black;
+            padding: 5px;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="RTSSocket.js"></script>
+    <script type="text/javascript">
+        var socket, chatLog;
+
+        $(document).ready(function() {
+
+            $('#chat-text').focus();
+            chatLog = $('#chat-log');
+            socket = new RTSocket({
+                host: 'localhost:9000',
+                path: '/websocket',
+
+                onOpen: function(event) {
+                    console.log('The socket connection has been opened.');
+                },
+
+                onClose: function(event) {
+                    console.log('The socket connection has been closed.');
+                },
+
+                onMessage: function(event) {
+                    writeMessage(event.data);
+                }
+            });
+
+            $("#send-button").click(function() {
+
+                for (var i = 0; i < 10; i++) {
+                    socket.send('Message: ' + i);
+                }
+
+            });
+        });
+
+        function writeMessage(message) {
+            chatLog.append('<p>' + message + '</p>');
+
+        }
+
+    </script>
+</head>
+<body>
+<div id="chat-log"></div>
+<input type="text" id="chat-text" style="width: 250px">
+<input type="button" id="send-button" value="Send">
+
+</body>
+</html>

@@ -1,4 +1,15 @@
-
+ 
+ - Chat messages not being displayed on screen. Problem is on client in JsonCommunicator constructor.
+   Its expecting a property called messageName, we should be looking for a property called c (the channel).
+   Are we even sending this information over the wire?
+ 
+ - When a connection is disconnected, it needs to be removed from all channels it is subscribed to.
+ 
+ - User testing for new pub/sub behaviour
+ 
+ - Might be able to avoid having the user call JsonRpcResponseWriter.writeEmptyResponse() by 
+ - Client should be listening for messages that are published to it (has listen functionality, ensure proper doc and wording in code)
+ 
  - JsonRpcResponseWriter should implement interface to increase testability of JsonRpcMethodHandlers
  
  - Communicator should be returning ChannelFuture and ChannelFutureGroup. How to handle this when

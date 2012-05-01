@@ -3,47 +3,41 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>rt-server</groupId>
-	<artifactId>rt-server</artifactId>
+	<groupId>io.rtserver</groupId>
+	<artifactId>rtserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>rt-server</name>
+	<packaging>pom</packaging>
+	<name>rtserver</name>
 	<url>http://maven.apache.org</url>
-
+	
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+	</repositories>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.8.1</junit.version>
+		<slf4j.version>1.6.4</slf4j.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty</artifactId>
-			<version>3.3.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>11.0.2</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -62,9 +56,16 @@
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<compilerVersion>1.5</compilerVersion>
+					<compilerVersion>1.6</compilerVersion>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<modules>
+		<module>rtserver-core</module>
+		<module>rtserver-netty</module>
+		<module>rtserver-glassfish</module>
+		<module>rtserver-examples</module>
+	</modules>
 </project>
